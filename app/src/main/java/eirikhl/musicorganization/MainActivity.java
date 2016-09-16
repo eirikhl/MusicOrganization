@@ -13,11 +13,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import io.realm.Realm;
+import io.realm.RealmObject;
+
 public class MainActivity extends AppCompatActivity {
+    private class Artist extends RealmObject{
+        private String name;
+        private int heavyness;
+        public void setHeavyness(int h){
+            heavyness = h;
+        }
+    }
 
     TextView txtOutput;
-    AlertDialog.Builder builder;
-    EditText input;
+    private AlertDialog.Builder builder;
+    private EditText input;
     private String m_Text;
 
     @Override
