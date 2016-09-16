@@ -12,4 +12,5 @@ This application is not meant to be commercialized in any way, it's just an educ
 
 In this app I'm using:
 https://realm.io
+
 https://github.com/jkovacs/lastfm-java
