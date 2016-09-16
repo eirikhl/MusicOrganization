@@ -11,6 +11,7 @@ Very much a work in progress at this point.
 This application is not meant to be commercialized in any way, it's just an educational, fun project for myself. 
 
 In this app I'm using:
+
 https://realm.io
 
 https://github.com/jkovacs/lastfm-java
