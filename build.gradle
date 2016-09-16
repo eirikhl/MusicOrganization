@@ -11,7 +11,22 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'io.realm:realm-gradle-plugin:1.2.0'
+    }
+}
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'de.u-mass:lastfm-java:0.1.2'
+    }
+}
 allprojects {
     repositories {
         jcenter()
@@ -20,13 +35,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "io.realm:realm-gradle-plugin:1.2.0"
-    }
 }
