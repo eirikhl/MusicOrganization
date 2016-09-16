@@ -7,3 +7,5 @@ The plan is to import information about the music I (or any other user) have lis
 The other major feature I've planned for it, is the option to ask for a recommendation. By using the aforementioned parameters, you will enter in what kind of music you'd like to listen to, and the app will give you a recommendation.
 
 Very much a work in progress at this point.
+
+This application is not meant to be commercialized in any way, it's just an educational, fun project for myself. 
