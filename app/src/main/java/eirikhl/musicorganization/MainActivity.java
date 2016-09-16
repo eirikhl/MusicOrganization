@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     // Variables for certain interactive objects
     TextView txtOutput;
     private AlertDialog.Builder builder;
-    private EditText input;
 
     // String for general usage, basically a placeholder
     private String general;
@@ -50,19 +49,23 @@ public class MainActivity extends AppCompatActivity {
         WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifi.setWifiEnabled(true);
 
+
         // Set initial variables to use
+        final EditText input;
         general = "";
         builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter username");
         input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
+        builder = this.builder.setView(input);
 
-        // Standard Android creation stuf
+
+        // Standard Android creation stuff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         // Set-up the buttons and the text field used in the app
         Button btnBrowse = (Button) findViewById(R.id.btnBrowse);
@@ -70,9 +73,11 @@ public class MainActivity extends AppCompatActivity {
         Button btnImport = (Button) findViewById(R.id.btnImport);
         txtOutput = (TextView) findViewById(R.id.txtOutput);
 
+
         //Set up Realm configuration
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
         realm = Realm.getInstance(realmConfig);
+
 
         // On click event handlers for the buttons
         btnBrowse.setOnClickListener(new View.OnClickListener(){
@@ -81,58 +86,69 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         btnSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
+
+        // Get the username to import from, connect to Last.fm, and get the most played artists
         btnImport.setOnClickListener(new View.OnClickListener() {
-            // Get the username to import from, connect to Last.fm, and get the most played artists
             @Override
             public void onClick(View view) {
                 general = "Importing...";
                 txtOutput.setText(general);
+
                 // Pop-up dialog
-                builder.show();
-                if(!general.equals("")){
-                    user = general;
-                    // Connect to Last.fm
-                    Caller.getInstance().setUserAgent(user);
+                popupHandler("Enter username", "Welfieboy");
 
-                    // Get the API key
-                    builder.setTitle("Enter API key");
-                    builder.show();
+                // Set the API key
+                popupHandler("Enter API key", "placeholder");
 
-                    chart = User.getTopArtists(user, Period.WEEK, key);
-                    for(Artist artist : chart){
-                        createArtist(artist);
-                    }
-                    txtOutput.setText(user);
-                }
-                else{
-                    txtOutput.setText(general);
+                // Fetch the artists, and create Realm entries for each of them
+                chart = User.getTopArtists(user, Period.WEEK, key);
+                for(Artist artist : chart){
+                    createArtist(artist);
                 }
             }
         });
+    }
 
-        // On click event handlers for the pop-up dialog
+/*  Creates an AlertDialog (popup)
+    The result of this method is that "general" will be set to the input
+    Then, whatever variable I'm actually interested in using is set to the value of "general" */
+    private void popupHandler(String title, final String expected){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Ask the user for their username
                 general = input.getText().toString();
+                //
+                if(general.equals(expected));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                general = "";
                 dialog.cancel();
             }
         });
+        builder.show();
     }
 
+
+    // Standard Android stuff
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -155,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     // Create a new artist record
     private void createArtist(final Artist artist){
         realm.executeTransaction(new Realm.Transaction(){
@@ -162,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
             public void execute(Realm realm) {
                 ImportedArtist ia = realm.createObject(ImportedArtist.class);
                 ia.setName(artist.getName());
-                ia.setGenre(artist.getTags());
+                ia.setGenre(artist.getTags().iterator().next());
             }
         });
     }
