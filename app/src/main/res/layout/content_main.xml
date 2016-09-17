@@ -9,18 +9,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="eirikhl.musicorganization.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="eirikhl.musicorganization.MainActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello"
-        android:editable="false"
+        android:text="@string/hello"
         android:id="@+id/txtOutput"
         android:textAlignment="center"
-        android:textSize="50dp"
-        android:forceHasOverlappingRendering="true"
+        android:textSize="50sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="140dp"
@@ -29,7 +26,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Import library"
+        android:text="@string/import_library"
         android:id="@+id/btnImport"
         android:background="#000000"
         android:textColor="#9e1c1c"
@@ -37,12 +34,13 @@
         android:maxWidth="150dp"
         android:minWidth="150dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Browse"
+        android:text="@string/browse"
         android:id="@+id/btnBrowse"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
@@ -51,12 +49,13 @@
         android:maxHeight="60dp"
         android:minHeight="60dp"
         android:textColor="#9e1c1c"
-        android:background="#000000" />
+        android:background="#000000"
+        android:textSize="18sp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Suggestion"
+        android:text="@string/suggestion"
         android:id="@+id/btnSuggestion"
         android:layout_alignBottom="@+id/btnBrowse"
         android:layout_alignParentEnd="true"
@@ -65,6 +64,7 @@
         android:minHeight="60dp"
         android:maxHeight="60dp"
         android:textColor="#9e1c1c"
-        android:background="#000000" />
+        android:background="#000000"
+        android:textSize="18sp" />
 
 </RelativeLayout>

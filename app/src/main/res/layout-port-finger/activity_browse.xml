@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtArtist"
+        android:text="@string/artist_or_band"
+        android:layout_marginStart="0dp"
+        android:textSize="30sp"
+        android:enabled="false"
+        android:textColor="#9e1c1c"
+        android:background="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:minHeight="70dp"
+        android:maxHeight="70dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/btnSaveChanges"
+        android:textColor="#9e1c1c"
+        android:background="#101010"
+        android:minWidth="150dp"
+        android:minHeight="60dp"
+        android:maxWidth="150dp"
+        android:maxHeight="60dp"
+        android:textSize="25sp"
+        android:clickable="false"
+        android:focusable="false"
+        android:enabled="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/txtNoisy"
+        android:layout_alignParentStart="true" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekEnergy"
+        android:minWidth="250dp"
+        android:maxWidth="250dp"
+        android:minHeight="20dp"
+        android:clickable="true"
+        android:max="10"
+        android:progress="5"
+        android:indeterminate="false"
+        android:layout_below="@+id/txtEnergy"
+        android:layout_alignStart="@+id/seekHappy"
+        android:thumbTint="#9e1c1c"
+        android:progressTint="#000000" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekHappy"
+        android:minWidth="250dp"
+        android:maxWidth="250dp"
+        android:minHeight="20dp"
+        android:max="10"
+        android:progress="5"
+        android:indeterminate="false"
+        android:layout_below="@+id/txtHappy"
+        android:layout_centerHorizontal="true"
+        android:thumbTint="#9e1c1c"
+        android:progressTint="#000000" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekHeavy"
+        android:minWidth="250dp"
+        android:maxWidth="250dp"
+        android:minHeight="20dp"
+        android:max="10"
+        android:progress="5"
+        android:indeterminate="false"
+        android:layout_below="@+id/txtHeavy"
+        android:layout_alignStart="@+id/seekHappy"
+        android:progressTint="#000000"
+        android:thumbTint="#9e1c1c" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekNoisy"
+        android:minWidth="250dp"
+        android:maxWidth="250dp"
+        android:minHeight="20dp"
+        android:max="10"
+        android:progress="5"
+        android:indeterminate="false"
+        android:layout_below="@+id/txtNoisy"
+        android:layout_alignStart="@+id/seekHeavy"
+        android:thumbTint="#9e1c1c"
+        android:progressTint="#000000" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtGenre"
+        android:text="@string/genre"
+        android:layout_marginStart="0dp"
+        android:textSize="20sp"
+        android:textColor="#9e1c1c"
+        android:background="#101010"
+        android:minHeight="50dp"
+        android:maxHeight="70dp"
+        android:layout_below="@+id/txtArtist"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtEnergy"
+        android:minWidth="150dp"
+        android:maxWidth="150dp"
+        android:textColor="#9e1c1c"
+        android:text="@string/how_energetic"
+        android:minHeight="35dp"
+        android:textSize="20sp"
+        android:layout_marginTop="67dp"
+        android:layout_below="@+id/txtGenre"
+        android:layout_alignStart="@+id/txtHappy" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtHappy"
+        android:minWidth="150dp"
+        android:maxWidth="150dp"
+        android:textColor="#9e1c1c"
+        android:text="@string/how_happy"
+        android:minHeight="35dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/seekEnergy"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtHeavy"
+        android:minWidth="150dp"
+        android:maxWidth="150dp"
+        android:textColor="#9e1c1c"
+        android:text="@string/how_heavy"
+        android:minHeight="35dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/seekHappy"
+        android:layout_alignStart="@+id/txtNoisy" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNoisy"
+        android:minWidth="150dp"
+        android:maxWidth="150dp"
+        android:textColor="#9e1c1c"
+        android:text="@string/how_noisy"
+        android:minHeight="35dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/seekHeavy"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:id="@+id/btnNextArtist"
+        android:textColor="#9e1c1c"
+        android:background="#101010"
+        android:minWidth="150dp"
+        android:minHeight="60dp"
+        android:maxWidth="150dp"
+        android:maxHeight="60dp"
+        android:textSize="25sp"
+        android:clickable="false"
+        android:focusable="false"
+        android:enabled="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_back"
+        android:id="@+id/btnGoBack"
+        android:background="#121212"
+        android:textColor="#9e1c1c"
+        android:layout_below="@+id/txtArtist"
+        android:layout_alignParentEnd="true"
+        android:minWidth="70dp" />
+
+</RelativeLayout>

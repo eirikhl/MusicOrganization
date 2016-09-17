@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Set initial variables to use
         general = "";
 
-        // Standard Android creation stuf
+        // Standard Android creation stuff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -76,10 +76,7 @@ public class MainActivity extends AppCompatActivity {
         btnBrowse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                RealmQuery<ImportedArtist> query = realm.where(ImportedArtist.class);
-                RealmResults<ImportedArtist> result = query.findAll();
-                result = result.sort("name");
-                txtOutput.setText(result.get(0).getName());
+                setContentView(R.layout.activity_browse);
             }
         });
 

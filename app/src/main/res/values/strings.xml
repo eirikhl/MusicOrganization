@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">MusicOrganization</string>
     <string name="action_settings">Settings</string>
+    <string name="artist_or_band">Artist or band</string>
+    <string name="save">Save</string>
+    <string name="genre">Genre</string>
+    <string name="how_energetic">How energetic?</string>
+    <string name="how_happy">How happy?</string>
+    <string name="how_heavy">How heavy?</string>
+    <string name="how_noisy">How noisy?</string>
+    <string name="next">Next</string>
+    <string name="go_back">Go back</string>
+    <string name="hello">Hello</string>
+    <string name="import_library">Import library</string>
+    <string name="browse">Browse</string>
+    <string name="suggestion">Suggestion</string>
 </resources>
