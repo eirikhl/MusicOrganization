@@ -1,13 +1,11 @@
 package eirikhl.musicorganization;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +19,9 @@ import de.umass.lastfm.Period;
 import de.umass.lastfm.User;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmObject;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+
 
 public class MainActivity extends AppCompatActivity {
     // Prepare Realm for use
@@ -52,11 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Set initial variables to use
         general = "";
-        builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter username");
-        input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
 
         // Standard Android creation stuf
         super.onCreate(savedInstanceState);
@@ -64,75 +59,55 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         // Set-up the buttons and the text field used in the app
         Button btnBrowse = (Button) findViewById(R.id.btnBrowse);
         Button btnSuggestion = (Button) findViewById(R.id.btnSuggestion);
         Button btnImport = (Button) findViewById(R.id.btnImport);
         txtOutput = (TextView) findViewById(R.id.txtOutput);
 
+
         //Set up Realm configuration
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
         realm = Realm.getInstance(realmConfig);
+
 
         // On click event handlers for the buttons
         btnBrowse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                RealmQuery<ImportedArtist> query = realm.where(ImportedArtist.class);
+                RealmResults<ImportedArtist> result = query.findAll();
+                result = result.sort("name");
+                txtOutput.setText(result.get(0).getName());
             }
         });
+
         btnSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
+
+        // Get the username to import from, connect to Last.fm, and get the most played artists
         btnImport.setOnClickListener(new View.OnClickListener() {
             // Get the username to import from, connect to Last.fm, and get the most played artists
             @Override
             public void onClick(View view) {
-                general = "Importing...";
-                txtOutput.setText(general);
-                // Pop-up dialog
-                builder.show();
-                if(!general.equals("")){
-                    user = general;
-                    // Connect to Last.fm
-                    Caller.getInstance().setUserAgent(user);
-
-                    // Get the API key
-                    builder.setTitle("Enter API key");
-                    builder.show();
-
-                    chart = User.getTopArtists(user, Period.WEEK, key);
-                    for(Artist artist : chart){
-                        createArtist(artist);
-                    }
-                    txtOutput.setText(user);
+                user = "Welfieboy";
+                key = "placeholder";
+                Caller.getInstance().setUserAgent(user);
+                Collection<Artist> artists = User.getTopArtists(user, Period.WEEK, key);
+                for(Artist artist : artists){
+                    createArtist(artist);
                 }
-                else{
-                    txtOutput.setText(general);
-                }
-            }
-        });
-
-        // On click event handlers for the pop-up dialog
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Ask the user for their username
-                general = input.getText().toString();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                general = "";
-                dialog.cancel();
             }
         });
     }
 
+
+    // Standard Android stuff
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -155,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     // Create a new artist record
     private void createArtist(final Artist artist){
         realm.executeTransaction(new Realm.Transaction(){
@@ -162,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             public void execute(Realm realm) {
                 ImportedArtist ia = realm.createObject(ImportedArtist.class);
                 ia.setName(artist.getName());
-                ia.setGenre(artist.getTags());
+                ia.setGenre(artist.getTags().iterator().next());
             }
         });
     }
