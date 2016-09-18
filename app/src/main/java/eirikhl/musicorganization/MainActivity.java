@@ -12,6 +12,13 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.Caller;
@@ -92,8 +99,22 @@ public class MainActivity extends AppCompatActivity {
             // Get the username to import from, connect to Last.fm, and get the most played artists
             @Override
             public void onClick(View view) {
-                user = "Welfieboy";
-                key = "placeholder";
+                BufferedReader br = null;
+                try{
+                    br = new BufferedReader(new FileReader("resources/username.txt"));
+                    user = br.readLine();
+                    br = new BufferedReader(new FileReader("resources/apikey.txt"));
+                    key = br.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        assert br != null;
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 Caller.getInstance().setUserAgent(user);
                 Collection<Artist> artists = User.getTopArtists(user, Period.WEEK, key);
                 for(Artist artist : artists){
