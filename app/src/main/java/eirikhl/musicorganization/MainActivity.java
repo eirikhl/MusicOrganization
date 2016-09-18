@@ -99,22 +99,19 @@ public class MainActivity extends AppCompatActivity {
             // Get the username to import from, connect to Last.fm, and get the most played artists
             @Override
             public void onClick(View view) {
-                BufferedReader br = null;
-                try{
-                    br = new BufferedReader(new FileReader("resources/username.txt"));
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader("resources/username.txt"));
                     user = br.readLine();
+
                     br = new BufferedReader(new FileReader("resources/apikey.txt"));
                     key = br.readLine();
-                } catch (IOException e) {
+
+                    br.close();
+                } catch (IOException e){
                     e.printStackTrace();
-                } finally {
-                    try {
-                        assert br != null;
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
+
+                // Connect to Last.fm, send a query for the most played artists for the last week
                 Caller.getInstance().setUserAgent(user);
                 Collection<Artist> artists = User.getTopArtists(user, Period.WEEK, key);
                 for(Artist artist : artists){
