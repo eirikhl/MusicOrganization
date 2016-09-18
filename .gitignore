@@ -6,5 +6,5 @@
 .DS_Store
 /build
 /captures
-/apikey.txt
-/username.txt
+/app/src/main/java/eirikhl/musicorganization/resources/apikey.txt
+/app/src/main/java/eirikhl/musicorganization/resources/username.txt
